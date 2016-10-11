@@ -1,0 +1,96 @@
+<html>
+
+ <head>
+    <title>查詢資料</title>
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="dictionary.css" />
+    <link rel="stylesheet" href="alertify.core.css" />
+	<link rel="stylesheet" href="alertify.default.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+
+</head>
+ 
+  <body>
+    
+      <input id='TypeIn' type="Text" >     <!-- name="inEnglish">id不能重複,name可以-->
+      <input id="btn" type="button" value="送出">
+      <div>
+      	<u><div id="keyin"></div></u>
+      	<div id="return"></div>
+  	  </div>
+  </body>
+
+
+ 	<script type="text/javascript" src="alertify.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+ 	<script>
+ 	$(function(){
+ 		$('#TypeIn').autocomplete({
+                source:"auto.php",
+                minLength: 2//input must greater or equal than 2 that function will start
+		});
+
+ 		$("#btn").click(function(){//button
+ 			$.ajax({
+		 		type : "POST",
+		 		url : "dictionary.php",
+		 		data:{
+		 			English:$("#TypeIn").val()//輸入欄位裡面的值會以English這個名字傳到後端
+		 		},
+		 		dataType:"json",
+		 		success:function(AfterQuery){//成功的話會回傳撈出來的值,以AfterQuery命名
+		 				
+		 			if (AfterQuery[0]==null) {
+		 				alertify.alert($('#TypeIn').val()+" is not found!");
+		 				//想要alert之後把使用者打的錯字反白
+		 			} 
+		 			else{
+		 				$('#keyin').empty();
+		 				$('#return').empty();
+	 					$('#keyin').append(AfterQuery[0]);
+		 				$('#return').append(AfterQuery[1]);
+		 				alertify.success("Success notification");
+		 			};
+		 		}
+			});
+ 		});
+ 		
+ 		$("#TypeIn").keypress(function(enter){//onkeypress亂打的,這裏直接打個g,w,u,j就會直接alert@@!!
+ 			$.ajax({
+		 		type : "POST",
+		 		url : "dictionary.php",
+		 		data:{
+		 			English:$("#TypeIn").val()
+		 		},
+		 		dataType:"json",
+		 		success:function(AfterQuery){
+		 				//alert(EngtoChi);檢查用
+		 			if(enter.which == 13) {
+        				//alert('You pressed enter!');
+	 					if (AfterQuery[0]==null) {
+			 				alertify.alert($('#TypeIn').val()+" is not found!");
+
+			 				//location.reload();//重新整理把亂打,輸入錯的刪除掉(還是說可以直接清空不用重整?)
+			 			} 
+			 			else{
+			 				$('#keyin').empty();
+			 				$('#return').empty();
+				 			$('#keyin').append(AfterQuery[0]);
+				 			$('#return').append(AfterQuery[1]);
+				 		}	
+		 			};
+		 			
+		 		}
+			});
+ 		});
+ 		
+ 	});
+ 	
+ 		
+ 	</script>
+ 	
+ 
+</html>

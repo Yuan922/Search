@@ -1,0 +1,47 @@
+#TypeIn{
+	height: 5%;
+	width: 12%;
+	border: solid 1.5px #0000EF;
+	margin-top: 2%;
+	margin-left: 2%;
+	font-size: 18px;
+
+}
+
+#btn{
+	height: 4%;
+	width: 6%;
+	background: #33BEFF;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-family: 微軟正黑體;
+	border-radius: 5px;
+	border: 0px;
+
+}
+
+#keyin{
+	height:5%;
+	width: 20%;
+	border: 0px solid #707070;
+	margin-top: 20px;
+	margin-left: 20px;
+	text-align: left;
+	font-family: 微軟正黑體;
+	font-weight:bold;
+	display: underline;
+	font-size: 20px;
+
+}
+
+
+#return{
+	height:20%;
+	width: 20%;
+	border: 0px solid #707070;
+	margin-left: 20px;
+	text-align: left;
+	z-index: 1;
+	font-size: 20px;
+	
+}
